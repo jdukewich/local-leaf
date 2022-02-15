@@ -40,7 +40,7 @@ function FileTree() {
 
   const formatFilename = (fullFile: string) => {
     // We only want to display the filename, not the full directory path
-    return fullFile.replace(/^.*[\\\/]/, '');
+    return fullFile.replace(/^.*[\\/]/, '');
   };
 
   const openFolder = () => {

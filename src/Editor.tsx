@@ -31,7 +31,7 @@ function Editor({ width }: EditorProps) {
       <Toolbar>
         <Button onClick={saveFile}>Save</Button>
         <TextContainer>
-          <span>Current File: {workspace?.file.replace(/^.*[\\\/]/, '')}</span>
+          <span>Current File: {workspace?.file.replace(/^.*[\\/]/, '')}</span>
         </TextContainer>
       </Toolbar>
       <AceEditor
