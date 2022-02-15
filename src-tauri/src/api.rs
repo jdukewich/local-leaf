@@ -1,7 +1,6 @@
 use std::fs;
 use std::process::Command;
-use std::sync::mpsc;
-use tauri::api::dialog::FileDialogBuilder;
+use tauri::api::dialog::blocking::FileDialogBuilder;
 use crate::structs::Response;
 
 #[tauri::command]
@@ -34,43 +33,33 @@ pub fn compile_tex(fname: &str, outdir: &str) -> Response<Vec<u8>> {
   }
 }
 
-#[tauri::command]
+#[tauri::command(async)]
 pub fn open_folder() -> Response<(String, Vec<String>)> {
   let mut dir = String::from("");
   let mut files: Vec<String> = Vec::new();
-  let dialog =  FileDialogBuilder::new();
-  let (sender, receiver) = mpsc::channel();
-  dialog.pick_folder(move |p| {
-    match sender.send(p) {
-      Ok(()) => {},
-      Err(_) => {
-        // Probably should do some handling of this :(
-      }
-    };
-  });
-  match receiver.recv().unwrap_or_default() {
-    Some(p) => {
-      dir = p.to_string_lossy().to_string();
-      match fs::read_dir(dir.clone()) {
+  match FileDialogBuilder::new().pick_folder() {
+    Some(path) => {
+      dir = path.to_string_lossy().to_string();
+      match fs::read_dir(path) {
         Ok(directory) => {
           for entry in directory {
             match entry {
               Ok(entry) => {
                 files.push(entry.path().to_string_lossy().to_string());
               },
-              Err(_) => {
-                // Probably should do some handling of this :(
-              }
+              Err(_) => {}
             };
           }
+          Response::success((dir, files))
         },
         Err(_) => {
-          // Probably should do some handling of this :(
+          Response::error((dir, files), String::from("Error reading the chosen directory"))
         }
-      };
-      Response::success((dir, files))
+      }
     },
-    None => Response::error((dir, files), String::from("Error opening folder")),
+    None => {
+      Response::error((dir, files), String::from("Error picking folder"))
+    }
   }
 }
 
