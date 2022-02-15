@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Local Leaf
+Welcome to Local Leaf! This project aims to create a local version of the popular online LaTeX editor [Overleaf](https://www.overleaf.com/). 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sometimes, it's just better to not have everything connected to the Internet, and this will allow you to work with the editor you know and love without requiring an Internet connection.
 
-## Available Scripts
+To use Local Leaf, you will need to download or install the Local Leaf app itself, but you will also need a LaTeX distribution on your machine. Local Leaf uses `latexmk` to compile PDFs, so you should be able to follow instructions [here](https://mg.readthedocs.io/latexmk.html) to get setup with that.
 
-In the project directory, you can run:
+## Installation
+### TeX Distribution
+You can use other TeX distributions, but this installation guide will use MiKTeX.
 
-### `yarn start`
+Download [MiKTeX](https://miktex.org/download) for your operating system.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Latexmk
+Install Latexmk following the docs [here](https://mg.readthedocs.io/latexmk.html#installation).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+If you need to install Perl, check it out [here](https://www.perl.org/get.html).
 
-### `yarn test`
+### Local Leaf
+Download the corresponding installer/executable for your system.
+- Linux
+- Mac
+- Windows
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Application Architecture
 
-### `yarn build`
+### Tauri
+This was built using [Tauri](https://tauri.studio/) which allows you to build desktop applications with a web frontend. To me, Tauri is like Electron, but without Chromium :).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### React
+React was used as the web frontend for this app. Some of vital libraries used in the frontend development are
+* [react-pdf](https://www.npmjs.com/package/react-pdf)
+* [react-resizable](https://www.npmjs.com/package/react-resizable)
+* [react-ace](https://www.npmjs.com/package/react-ace)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
+Any contributions are welcome! If you think you can improve something, please submit a detailed pull request. A project roadmap will be created soon to track things that need to be added or fixed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
