@@ -1,7 +1,7 @@
 {
   "package": {
     "productName": "local-leaf",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "build": {
     "distDir": "../build",
