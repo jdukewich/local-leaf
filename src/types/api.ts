@@ -1,20 +1,20 @@
 export interface Response {
-    status: string
-    message?: string
+  status: string;
+  message?: string;
 }
 
 export interface OpenFileResponse extends Response {
-    body: string
+  body: string;
 }
 
 export interface OpenFolderResponse extends Response {
-    body: [string, string[]]
+  body: [string, string[]];
 }
 
 export interface SaveFileResponse extends Response {
-    body: string
+  body: string;
 }
 
 export interface CompileResponse extends Response {
-    body: Uint8Array
+  body: Uint8Array;
 }

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Row, Col } from './shared';
+import styled from "styled-components";
+import { Row, Col } from "./shared";
 
 const Title = styled(Col)`
   text-align: center;
@@ -18,7 +18,9 @@ function Navbar() {
   return (
     <NavRow>
       <Col />
-      <Title><h2>Local Leaf</h2></Title>
+      <Title>
+        <h2>Local Leaf</h2>
+      </Title>
       <Col />
     </NavRow>
   );
