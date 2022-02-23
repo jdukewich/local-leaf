@@ -18,9 +18,9 @@ If you need to install Perl, check it out [here](https://www.perl.org/get.html).
 
 ### Local Leaf
 Download the corresponding installer/executable for your system.
-- Linux
-- Mac
-- Windows
+- Linux: [local-leaf_0.1.0_amd64.AppImage](https://github.com/jdukewich/local-leaf/releases/download/app-v0.1.0/local-leaf_0.1.0_amd64.AppImage)
+- Mac: [Local.Leaf_0.1.0_x64.dmg](https://github.com/jdukewich/local-leaf/releases/download/app-v0.1.0/Local.Leaf_0.1.0_x64.dmg)
+- Windows: [Local.Leaf_0.1.0_x64_en-US.msi](https://github.com/jdukewich/local-leaf/releases/download/app-v0.1.0/Local.Leaf_0.1.0_x64_en-US.msi)
 
 ## Application Architecture
 
@@ -37,6 +37,18 @@ React was used as the web frontend for this app. Some of vital libraries used in
 Any contributions are welcome! If you think you can improve something, please submit a detailed pull request. A project roadmap will be created soon to track things that need to be added or fixed.
 
 ### Dev Setup
-Make sure you have Node and NPM installed.
+Make sure you have Node, NPM, and Yarn installed.
+
+1. Clone the repo
+
+`https://github.com/jdukewich/local-leaf.git && cd local-leaf`
+
+2. Install dependencies
+
+`yarn`
+
+3. Run Tauri development mode
+
+`yarn tauri dev`
 
 
