@@ -21,9 +21,18 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
     - name: Install dependencies
       run: yarn
     - name: Run tests
       run: yarn test
     - name: Build
       run: yarn build
+    - name: install webkit2gtk (ubuntu only)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y webkit2gtk-4.0
+    - name: Build Tauri app
+      run: yarn tauri build

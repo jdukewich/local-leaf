@@ -37,17 +37,18 @@ React was used as the web frontend for this app. Some of vital libraries used in
 Any contributions are welcome! If you think you can improve something, please submit a detailed pull request. A project roadmap will be created soon to track things that need to be added or fixed.
 
 ### Dev Setup
-Make sure you have Node, NPM, and Yarn installed.
 
-1. Clone the repo
+1. Follow the setup for Tauri [here](https://tauri.studio/docs/getting-started/prerequisites). This project uses yarn as an alternative to npm.
+
+2. Clone the repo
 
 `https://github.com/jdukewich/local-leaf.git && cd local-leaf`
 
-2. Install dependencies
+3. Install dependencies
 
 `yarn`
 
-3. Run Tauri development mode
+4. Run Tauri development mode
 
 `yarn tauri dev`
 
