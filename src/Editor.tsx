@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
-import { useWorkspace, Workspace } from './App';
-import AceEditor from 'react-ace';
-import { Button, Pane, TextContainer, ToolbarSpaced, FlexDiv } from './shared';
+import { useState } from "react";
+import { invoke } from "@tauri-apps/api/tauri";
+import { useWorkspace, Workspace } from "./App";
+import AceEditor from "react-ace";
+import { Button, Pane, TextContainer, ToolbarSpaced, FlexDiv } from "./shared";
 
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
 
 interface EditorProps {
-  width: number
-};
+  width: number;
+}
 
 function Editor({ width }: EditorProps) {
   const { workspace, setWorkspace } = useWorkspace();
@@ -17,14 +17,17 @@ function Editor({ width }: EditorProps) {
 
   const saveFile = () => {
     if (workspace.fileContents !== "" && workspace.file !== "") {
-      invoke('save_file', {fname: workspace.file, contents: workspace.fileContents});
+      invoke("save_file", {
+        fname: workspace.file,
+        contents: workspace.fileContents,
+      });
     }
   };
 
   const updateFile = (value: string, event: any) => {
     setWorkspace((state: Workspace) => ({
       ...state,
-      fileContents: value
+      fileContents: value,
     }));
   };
 
@@ -33,7 +36,7 @@ function Editor({ width }: EditorProps) {
       <ToolbarSpaced>
         <Button onClick={saveFile}>Save</Button>
         <TextContainer>
-          <span>Current File: {workspace?.file.replace(/^.*[\\/]/, '')}</span>
+          <span>Current File: {workspace?.file.replace(/^.*[\\/]/, "")}</span>
         </TextContainer>
         <FlexDiv>
           <TextContainer>Font Size: {fontSize}</TextContainer>
@@ -49,13 +52,13 @@ function Editor({ width }: EditorProps) {
         fontSize={fontSize}
         value={workspace?.fileContents}
         height="100%"
-        width={width + 'px'}
+        width={width + "px"}
         showPrintMargin={false}
         wrapEnabled={true}
-        setOptions={{fixedWidthGutter: true}}
+        setOptions={{ fixedWidthGutter: true }}
       />
     </Pane>
   );
 }
-  
+
 export default Editor;
