@@ -39,9 +39,9 @@ const resizerStyles = { backgroundColor: '#2c3645', width: '10px', height: '100%
 function App() {
   const [width, setWidth] = useState(
     {
-      fileTree: Math.floor(window.innerWidth / 4),
-      editor: Math.floor(window.innerWidth / 4),
-      viewer: window.innerWidth - 2 * Math.floor(window.innerWidth / 4)
+      fileTree: Math.floor(window.innerWidth / 6),
+      editor: Math.floor(5 * window.innerWidth / 12),
+      viewer: window.innerWidth - Math.floor(5 * window.innerWidth / 12) - Math.floor(window.innerWidth / 6)
     }
   );
 
@@ -51,8 +51,8 @@ function App() {
     setWidth(
       {
         fileTree: Math.floor(window.innerWidth / 6),
-        editor: Math.floor(window.innerWidth / 3),
-        viewer: window.innerWidth - Math.floor(window.innerWidth / 3) - Math.floor(window.innerWidth / 6)
+        editor: Math.floor(5 * window.innerWidth / 12),
+        viewer: window.innerWidth - Math.floor(5 * window.innerWidth / 12) - Math.floor(window.innerWidth / 6)
       }
     );
   }

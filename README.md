@@ -36,3 +36,7 @@ React was used as the web frontend for this app. Some of vital libraries used in
 ## Contributing
 Any contributions are welcome! If you think you can improve something, please submit a detailed pull request. A project roadmap will be created soon to track things that need to be added or fixed.
 
+### Dev Setup
+Make sure you have Node and NPM installed.
+
+
