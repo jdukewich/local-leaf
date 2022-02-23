@@ -1,10 +1,10 @@
-import { invoke } from '@tauri-apps/api/tauri';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
-import { useWorkspace } from './App';
-import { CompileResponse } from './types/api';
 import { Loading, Button, TextContainer, FlexDiv, ToolbarSpaced } from './shared';
 import styled from 'styled-components';
+import { invoke } from '@tauri-apps/api/tauri';
+import { CompileResponse } from './types/api';
+import { useWorkspace } from './App';
 
 interface pdfDoc {
   numPages: number;
@@ -25,14 +25,12 @@ function PDF() {
   const [scale, setScale] = useState(1);
   const { workspace } = useWorkspace();
   const [pdfData, setPdfData] = useState<Uint8Array | null>(null);
-  const [loading, setLoading] = useState(false);
+  const memoData = useMemo(() => ({data: pdfData}), [pdfData]);
 
   const recompile = () => {
-    setLoading(true);
     invoke('save_file', {fname: workspace?.file, contents: workspace?.fileContents}).then(() => {
       invoke<CompileResponse>('compile_tex', {fname: workspace?.file, outdir: workspace?.dir}).then((resp: CompileResponse) => {
         setPdfData(resp.body);
-        setLoading(false);
       });
     });
   };
@@ -55,15 +53,15 @@ function PDF() {
       </ToolbarSpaced>
       <PDFPane>
         <PDFDocument 
-          file={pdfData && !loading ? {data: pdfData} : undefined}
+          file={memoData}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={<Loading />}
-          noData={<Loading />}
+          noData={<span>No Data</span>}
         >
           {
             Array.from(
               new Array(numPages),
-              (el, index) => (
+              (_, index) => (
                 <Page 
                   key={`page_${index + 1}`}
                   pageNumber={index + 1}
@@ -78,4 +76,4 @@ function PDF() {
   );
 }
   
-  export default PDF;
+export default PDF;
