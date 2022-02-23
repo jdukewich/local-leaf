@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import { useWorkspace } from './App';
 import { CompileResponse } from './types/api';
-import { Loading, Toolbar, Button, TextContainer } from './shared';
+import { Loading, Button, TextContainer, FlexDiv, ToolbarSpaced } from './shared';
 import styled from 'styled-components';
 
 interface pdfDoc {
@@ -43,14 +43,16 @@ function PDF() {
 
   return (
     <>
-      <Toolbar>
+      <ToolbarSpaced>
           <Button onClick={recompile}>Recompile</Button>
-          <TextContainer>
-            <span>Zoom</span>
-          </TextContainer>
-          <Button onClick={() => setScale(scale + 0.5)}>+</Button>
-          <Button onClick={() => setScale(scale - 0.5)}>-</Button>
-      </Toolbar>
+          <FlexDiv>
+            <TextContainer>
+              <span>Zoom</span>
+            </TextContainer>
+            <Button onClick={() => setScale(scale + 0.5)}>+</Button>
+            <Button onClick={() => setScale(scale - 0.5)}>-</Button>
+          </FlexDiv>
+      </ToolbarSpaced>
       <PDFPane>
         <PDFDocument 
           file={pdfData && !loading ? {data: pdfData} : undefined}

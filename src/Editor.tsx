@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
 import { useWorkspace, Workspace } from './App';
 import AceEditor from 'react-ace';
-import { Toolbar, Button, Pane, TextContainer } from './shared';
+import { Button, Pane, TextContainer, ToolbarSpaced, FlexDiv } from './shared';
 
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
@@ -12,6 +13,7 @@ interface EditorProps {
 
 function Editor({ width }: EditorProps) {
   const { workspace, setWorkspace } = useWorkspace();
+  const [fontSize, setFontSize] = useState(12);
 
   const saveFile = () => {
     if (workspace.fileContents !== "" && workspace.file !== "") {
@@ -28,17 +30,23 @@ function Editor({ width }: EditorProps) {
 
   return (
     <Pane>
-      <Toolbar>
+      <ToolbarSpaced>
         <Button onClick={saveFile}>Save</Button>
         <TextContainer>
           <span>Current File: {workspace?.file.replace(/^.*[\\/]/, '')}</span>
         </TextContainer>
-      </Toolbar>
+        <FlexDiv>
+          <TextContainer>Font Size: {fontSize}</TextContainer>
+          <Button onClick={() => setFontSize(fontSize + 0.5)}>+</Button>
+          <Button onClick={() => setFontSize(fontSize - 0.5)}>-</Button>
+        </FlexDiv>
+      </ToolbarSpaced>
       <AceEditor
         mode="latex"
         theme="dracula"
         onChange={updateFile}
         name="text-editor"
+        fontSize={fontSize}
         value={workspace?.fileContents}
         height="100%"
         width={width + 'px'}
