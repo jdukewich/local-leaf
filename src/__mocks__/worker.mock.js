@@ -1,1 +1,1 @@
-export default "worker";
+export default Object.create(null);

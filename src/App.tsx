@@ -20,7 +20,8 @@ export interface Workspace {
 }
 
 const initialWorkspace: Workspace = { dir: "", file: "", fileContents: "" };
-export const WorkspaceContext = createContext<{
+/* istanbul ignore next */
+const WorkspaceContext = createContext<{
   workspace: Workspace;
   setWorkspace: any;
 }>({ workspace: initialWorkspace, setWorkspace: () => {} });

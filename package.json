@@ -28,7 +28,7 @@
   "scripts": {
     "start": "cross-env BROWSER=none react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "tauri": "tauri",
     "format": "prettier --write src/**/*.ts{,x}",
@@ -39,6 +39,32 @@
       "react-app",
       "react-app/jest",
       "prettier"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx,js,jsx}"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-pdf)/"
+    ],
+    "moduleNameMapper": {
+      "\\.worker$": "<rootDir>/src/__mocks__/worker.mock.js"
+    },
+    "coveragePathIgnorePatterns": [
+      "index.tsx?",
+      "reportWebVitals.ts",
+      "react-app-env.d.ts"
     ]
   },
   "browserslist": {
@@ -57,6 +83,8 @@
     "@tauri-apps/cli": "^1.0.0-rc.4",
     "cross-env": "^7.0.3",
     "eslint-config-prettier": "^8.4.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
     "prettier": "^2.5.1"
   }
 }
