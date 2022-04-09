@@ -13,7 +13,7 @@ interface EditorProps {
 
 function Editor({ width }: EditorProps) {
   const { workspace, setWorkspace } = useWorkspace();
-  const [fontSize, setFontSize] = useState(12);
+  const [fontSize, setFontSize] = useState(14);
 
   const saveFile = () => {
     if (workspace.fileContents !== "" && workspace.file !== "") {
@@ -55,7 +55,12 @@ function Editor({ width }: EditorProps) {
         width={width + "px"}
         showPrintMargin={false}
         wrapEnabled={true}
-        setOptions={{ fixedWidthGutter: true }}
+        setOptions={{
+          fixedWidthGutter: true,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+        }}
+        annotations={workspace?.errors}
       />
     </Pane>
   );

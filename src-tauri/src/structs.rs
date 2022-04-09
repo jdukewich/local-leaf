@@ -1,6 +1,13 @@
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
+pub struct Annotation {
+  pub row: u32,
+  pub column: u32,
+  pub text: String,
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct Response<T> {
   status: String,
   body: T,

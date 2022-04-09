@@ -29,7 +29,7 @@ const PDFDocument = styled(Document)`
 function PDF() {
   const [numPages, setNumPages] = useState(0);
   const [scale, setScale] = useState(1);
-  const { workspace } = useWorkspace();
+  const { workspace, setWorkspace } = useWorkspace();
   const [pdfData, setPdfData] = useState<Uint8Array | null>(null);
   const memoData = useMemo(() => ({ data: pdfData }), [pdfData]);
 
@@ -42,7 +42,15 @@ function PDF() {
         fname: workspace?.file,
         outdir: workspace?.dir,
       }).then((resp: CompileResponse) => {
-        setPdfData(resp.body);
+        const errors = resp.body[1].map((err) => {
+          err.type = "error";
+          return err;
+        });
+        setPdfData(resp.body[0]);
+        setWorkspace({
+          ...workspace,
+          errors,
+        });
       });
     });
   };

@@ -12,14 +12,21 @@ import PDF from "./PDF";
 import Navbar from "./Navbar";
 import { ResizableBox as Box, ResizeCallbackData } from "react-resizable";
 import { Container, Row } from "./shared";
+import { Annotation } from "./types/api";
 
-export interface Workspace {
+export type Workspace = {
   dir: string;
   file: string;
   fileContents: string;
-}
+  errors?: Annotation[];
+};
 
-const initialWorkspace: Workspace = { dir: "", file: "", fileContents: "" };
+const initialWorkspace: Workspace = {
+  dir: "",
+  file: "",
+  fileContents: "",
+  errors: [],
+};
 /* istanbul ignore next */
 const WorkspaceContext = createContext<{
   workspace: Workspace;

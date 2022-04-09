@@ -1,17 +1,43 @@
 use std::fs;
+use std::str;
 use std::process::Command;
+use fancy_regex::Regex;
 use tauri::api::dialog::blocking::FileDialogBuilder;
-use crate::structs::Response;
+use crate::structs::{Annotation,Response};
 
 #[tauri::command]
-pub fn compile_tex(fname: &str, outdir: &str) -> Response<Vec<u8>> {
+pub fn compile_tex(fname: &str, outdir: &str) -> Response<(Vec<u8>, Vec<Annotation>)> {
+  let mut errors: Vec<Annotation> = Vec::new();
   let compile = Command::new("latexmk")
     .arg("-pdf")
+    .arg("-interaction=nonstopmode")
+    .arg("-g")
     .arg(format!("-outdir={}", outdir))
     .arg(format!("{}", fname))
     .output();
   match compile {
-    Ok(_) => {},
+    Ok(results) => {
+      // Look for "\r\n!" which indicates an error in the output
+      match str::from_utf8(&results.stdout) {
+        Ok(output) => {
+          let re = Regex::new(r"\r\n!.*\r\n.*\r\n").unwrap();
+          for cap in re.captures_iter(output) {
+            match cap {
+              Ok(capture) => {
+                let split: Vec<&str> = (&capture[0]).trim().split("\r\n").collect();
+                let err_re = Regex::new(r"(?<=[!\s]).*").unwrap();
+                let loc_re = Regex::new(r"(?<=[\d\.])(\d*)(?=\s)").unwrap();
+                let err = err_re.find(&split[0]).unwrap().unwrap().as_str();
+                let location = loc_re.find(&split[1]).unwrap().unwrap().as_str().parse::<u32>().unwrap();
+                errors.push(Annotation { row: location - 1, column: 0, text: err.to_string()});
+              },
+              Err(_) => {}
+            }
+          }
+        },
+        Err(_) => {}
+      }
+    },
     Err(_) => {
       // Probably should do some handling of this :(
     }
@@ -28,8 +54,8 @@ pub fn compile_tex(fname: &str, outdir: &str) -> Response<Vec<u8>> {
     }
   };
   match fs::read(format!("{}/main.pdf", outdir)) {
-    Ok(data) => { Response::success(data) },
-    Err(e) => { Response::error(vec![], e.to_string()) }
+    Ok(data) => { Response::success((data, errors)) },
+    Err(e) => { Response::error((vec![], vec![]), e.to_string()) }
   }
 }
 

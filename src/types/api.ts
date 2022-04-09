@@ -1,3 +1,10 @@
+export interface Annotation {
+  row: number;
+  column: number;
+  text: string;
+  type: string;
+}
+
 export interface Response {
   status: string;
   message?: string;
@@ -16,5 +23,5 @@ export interface SaveFileResponse extends Response {
 }
 
 export interface CompileResponse extends Response {
-  body: Uint8Array;
+  body: [Uint8Array, Annotation[]];
 }
