@@ -34,6 +34,8 @@ function PDF() {
   const memoData = useMemo(() => ({ data: pdfData }), [pdfData]);
 
   const recompile = () => {
+    // To indicate we are loading
+    setPdfData(null);
     invoke("save_file", {
       fname: workspace?.file,
       contents: workspace?.fileContents,
