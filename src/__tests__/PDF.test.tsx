@@ -11,7 +11,7 @@ jest.mock("@tauri-apps/api/tauri", () => {
         case "save_file":
           return Promise.resolve();
         case "compile_tex":
-          return Promise.resolve({ body: "fakePDF" });
+          return Promise.resolve({ body: ["fakePDF", []] });
         default:
           break;
       }

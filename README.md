@@ -42,7 +42,7 @@ Any contributions are welcome! If you think you can improve something, please su
 
 2. Clone the repo
 
-`https://github.com/jdukewich/local-leaf.git && cd local-leaf`
+`git clone https://github.com/jdukewich/local-leaf.git && cd local-leaf`
 
 3. Install dependencies
 

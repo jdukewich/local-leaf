@@ -89,8 +89,8 @@ describe("Editor", () => {
   it("should change font size whens buttons are clicked", async () => {
     render(<Editor width={1} />);
     userEvent.click(screen.getByText("+"));
-    expect(await screen.findByText("Font Size: 12.5")).toBeTruthy();
+    expect(await screen.findByText("Font Size: 14.5")).toBeTruthy();
     userEvent.click(screen.getByText("-"));
-    expect(await screen.findByText("Font Size: 12")).toBeTruthy();
+    expect(await screen.findByText("Font Size: 14")).toBeTruthy();
   });
 });
